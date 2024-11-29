@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Square, Heading, TextIcon, FileDown, Locate } from 'lucide-react';
  
 import { CanvasComponent } from '../types';
