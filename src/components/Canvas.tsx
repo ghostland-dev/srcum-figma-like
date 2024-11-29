@@ -44,6 +44,7 @@ export function Canvas({
             position: 'absolute',
             left: component.position.x,
             top: component.position.y,
+            width: component.width ? `${component.width}px` : 'auto',
             cursor: 'move',
           }}
           className={`absolute ${
@@ -51,17 +52,38 @@ export function Canvas({
           }`}
         >
           {component.type === 'button' && (
-            <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+            <button 
+              style={{
+                backgroundColor: component.backgroundColor || '#3b82f6',
+                color: component.textColor || '#ffffff',
+                fontSize: `${component.fontSize || 16}px`,
+                width: '100%',
+              }}
+              className="px-4 py-2 rounded"
+            >
               {component.content || 'Button'}
             </button>
           )}
           {component.type === 'title' && (
-            <h2 className="text-2xl font-bold">
+            <h2 
+              style={{
+                color: component.textColor || '#000000',
+                fontSize: `${component.fontSize || 24}px`,
+                backgroundColor: component.backgroundColor,
+              }}
+              className="font-bold"
+            >
               {component.content || 'Title'}
             </h2>
           )}
           {component.type === 'text' && (
-            <p className="text-gray-700">
+            <p 
+              style={{
+                color: component.textColor || '#374151',
+                fontSize: `${component.fontSize || 16}px`,
+                backgroundColor: component.backgroundColor,
+              }}
+            >
               {component.content || 'Text content'}
             </p>
           )}

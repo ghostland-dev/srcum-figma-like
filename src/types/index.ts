@@ -5,7 +5,14 @@ export interface Position {
 
 export interface CanvasComponent {
   id: string;
-  type: 'button' | 'title' | 'text' ;
+  type: 'button' | 'title' | 'text';
   content: string;
-  position: Position;
+  position: {
+    x: number;
+    y: number;
+  };
+  width?: number;
+  backgroundColor?: string;
+  textColor?: string;
+  fontSize?: number;
 }
