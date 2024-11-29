@@ -3,11 +3,17 @@ import { Sidebar } from './components/Sidebar';
 import { Canvas } from './components/Canvas';
 import { CanvasComponent } from './types';
 import { EditPanel } from './components/EditPanel';
+ 
 
 function App() {
   const [components, setComponents] = useState<CanvasComponent[]>([]);
   const [selectedComponent, setSelectedComponent] = useState<CanvasComponent | null>(null);
 
+
+  const handleDeleteComponent = (id: string) => {
+    setComponents(components.filter(comp => comp.id !== id));
+    setSelectedComponent(null);
+  };
   const handleAddComponent = (type: 'button' | 'title' | 'text' | 'image' | 'geolocalisation' | 'carousel' | 'images') => {
     if (type === 'image') {
       const input = document.createElement('input');
@@ -74,7 +80,8 @@ function App() {
         onSelectComponent={handleSelectComponent}
         selectedId={selectedComponent?.id ?? null}
       />
-      <EditPanel 
+      <EditPanel
+        onDelete={handleDeleteComponent}
         component={selectedComponent}
         onUpdate={(updates) => 
           selectedComponent && handleUpdateComponent(selectedComponent.id, updates)
