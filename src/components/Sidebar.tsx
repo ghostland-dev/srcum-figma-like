@@ -47,6 +47,13 @@ export function Sidebar({ onAddComponent, components }: SidebarProps) {
         <Image size={20} />
         <span>Image</span>
       </button>
+      <button
+        onClick={() => onAddComponent('carousel')}
+        className="flex items-center gap-2 text-white bg-gray-700 hover:bg-gray-600 p-3 rounded-lg w-full"
+      >
+        <Image size={20} />
+        <span>Carousel</span>
+      </button>
       
       <div className="space-y-2">
         <button

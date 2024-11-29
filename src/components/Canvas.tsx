@@ -81,6 +81,15 @@ export function Canvas({
               style={{width: '250px', height: 'auto'}}
             />
           )}
+          {component.type === 'carousel' && (
+            <Swiper className="w-64 h-32 bg-gray-200">
+              {(component.images || []).map((image, index) => (
+                <SwiperSlide key={index}>
+                  <img src={image} alt={`Slide ${index}`} className="w-full h-full object-cover" />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
         </div>
       ))}
     </div>
