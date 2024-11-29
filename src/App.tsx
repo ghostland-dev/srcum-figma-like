@@ -42,7 +42,7 @@ function App() {
 
   return (
     <div className="flex">
-      <Sidebar onAddComponent={handleAddComponent} />
+      <Sidebar onAddComponent={handleAddComponent} components={components} />
        <Canvas 
         components={components} 
         onUpdateComponent={handleUpdateComponent}
