@@ -8,7 +8,7 @@ function App() {
   const [components, setComponents] = useState<CanvasComponent[]>([]);
   const [selectedComponent, setSelectedComponent] = useState<CanvasComponent | null>(null);
 
-  const handleAddComponent = (type: 'button' | 'title' | 'text' | 'image') => {
+  const handleAddComponent = (type: 'button' | 'title' | 'text' | 'image' | 'geolocalisation') => {
     if (type === 'image') {
       const input = document.createElement('input');
       input.type = 'file';
@@ -40,6 +40,7 @@ function App() {
       };
       setComponents([...components, newComponent]);
     }
+
   };
 
   const handleUpdateComponent = (
@@ -66,7 +67,7 @@ function App() {
 
   return (
     <div className="flex">
-      <Sidebar onAddComponent={handleAddComponent} />
+      <Sidebar onAddComponent={handleAddComponent} components={components} />
        <Canvas 
         components={components} 
         onUpdateComponent={handleUpdateComponent}

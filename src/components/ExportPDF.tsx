@@ -1,6 +1,7 @@
 import React from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { FileDown } from 'lucide-react';
 
 interface ExportPDFProps {
   canvasId: string;
@@ -21,6 +22,6 @@ export function ExportPDF({ canvasId }: ExportPDFProps) {
       }
     };
   
-    return <div onClick={handleExportPDF}>Export PDF</div>;
+    return <button  className="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full" onClick={handleExportPDF}>        <FileDown size={30} /> Export PDF</button>;
   }
   
