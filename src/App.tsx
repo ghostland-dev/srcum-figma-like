@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Sidebar } from './components/Sidebar';
+import { Canvas } from './components/Canvas';
 import { CanvasComponent } from './types';
 
 function App() {
@@ -41,6 +42,12 @@ function App() {
   return (
     <div className="flex">
       <Sidebar onAddComponent={handleAddComponent} />
+       { <Canvas 
+        components={components} 
+        onUpdateComponent={handleUpdateComponent}
+        onSelectComponent={handleSelectComponent}
+        selectedId={selectedComponent?.id ?? null}
+      />}
     </div>
   );
 }
