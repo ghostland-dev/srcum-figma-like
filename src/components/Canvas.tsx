@@ -104,13 +104,48 @@ export function Canvas({
             />
           )}
           {component.type === 'carousel' && (
-            <Swiper className="w-64 h-32 bg-gray-200">
-              {(component.images || []).map((image, index) => (
-                <SwiperSlide key={index}>
-                  <img src={image} alt={`Slide ${index}`} className="w-full h-full object-cover" />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            <div
+              style={{
+                position: 'absolute',
+                left: component.position.x,
+                top: component.position.y,
+                width: '256px',
+              }}
+              className={`relative ${
+                selectedId === component.id ? 'ring-2 ring-blue-500' : ''
+              }`}
+            >
+              <div
+                draggable
+                onDragStart={(e) => handleDragStart(e, component.id)}
+                onDrag={(e) => handleDrag(e, component.id)}
+                style={{
+                  width: '20px',
+                  height: '20px',
+                  borderRadius: '50%',
+                  backgroundColor: '#000000',
+                  position: 'absolute',
+                  top: '-40px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  cursor: 'grab',
+                }}
+              ></div>
+              <Swiper
+                className="w-64 h-32 bg-gray-200"
+                onTouchStart={(e) => e.stopPropagation()}
+              >
+                {(component.images || []).map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <img
+                      src={image}
+                      alt={`Slide ${index}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           )}
         </div>
       ))}
