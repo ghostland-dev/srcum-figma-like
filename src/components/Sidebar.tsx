@@ -1,8 +1,8 @@
 import React from 'react';
 import { ExportPDF } from './ExportPDF';
-import { Square, Heading, TextIcon } from 'lucide-react';
+import { Square, Heading, TextIcon, FileText, Image } from 'lucide-react';
 
-type ComponentType = 'button' | 'title' | 'text';
+type ComponentType = 'button' | 'title' | 'text' | 'image';
 
 interface SidebarProps {
   onAddComponent: (type: ComponentType) => void;
@@ -27,6 +27,7 @@ export function Sidebar({ onAddComponent }: SidebarProps) {
         <Heading size={20} />
         <span>Title</span>
       </button>
+
       <button
         onClick={() => onAddComponent('text')}
         className="flex items-center gap-2 text-white bg-gray-700 hover:bg-gray-600 p-3 rounded-lg w-full"
@@ -34,6 +35,14 @@ export function Sidebar({ onAddComponent }: SidebarProps) {
         <TextIcon size={20} />
         <span>Text</span>
       </button>
+
+      <button
+          onClick={() => onAddComponent('image')}
+          className="flex items-center gap-2 text-white bg-gray-700 hover:bg-gray-600 p-3 rounded-lg w-full"
+        >
+          <Image size={20} />
+          <span>Image</span>
+        </button>
 
       <div className="mt-auto">
         <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full">

@@ -65,6 +65,14 @@ export function Canvas({
               {component.content || 'Text content'}
             </p>
           )}
+          {component.type === 'image' && (
+            <img
+              src={component.imageSrc || ''}
+              alt="Uploaded"
+              className="w-32 h-32 object-cover"
+              style={{width: '250px', height: 'auto'}}
+            />
+          )}
         </div>
       ))}
     </div>

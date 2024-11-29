@@ -5,7 +5,8 @@ export interface Position {
 
 export interface CanvasComponent {
   id: string;
-  type: 'button' | 'title' | 'text';
+  type: 'button' | 'title' | 'text' | 'image';
   content: string;
   position: Position;
+  imageSrc?: string;
 }
