@@ -18,6 +18,7 @@ export function Sidebar({ onAddComponent }: SidebarProps) {
         <Square size={20} />
         <span>Button</span>
       </button>
+      
       <button
         onClick={() => onAddComponent('title')}
         className="flex items-center gap-2 text-white bg-gray-700 hover:bg-gray-600 p-3 rounded-lg w-full"
