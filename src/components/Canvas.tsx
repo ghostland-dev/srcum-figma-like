@@ -1,18 +1,27 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { CanvasComponent } from '../types';
+import GeolocationComponent from './GeolocationComponent';
+
+interface CanvasProps {
+  components: CanvasComponent[];
+  onUpdateComponent: (id: string, updates: Partial<CanvasComponent>) => void;
+  onSelectComponent: (component: CanvasComponent) => void;
+  selectedId: string | null;
+}
 
 export function Canvas({
   components,
   onUpdateComponent,
   onSelectComponent,
   selectedId,
-}) {
-  const handleDragStart = (e, id) => {
+}: CanvasProps) {
+  const handleDragStart = (e: React.DragEvent, id: string) => {
     e.dataTransfer.setData('componentId', id);
   };
 
-  const handleDrag = (e, id) => {
+  const handleDrag = (e: React.DragEvent, id: string) => {
     if (e.clientX && e.clientY) {
       const canvas = e.currentTarget.parentElement?.getBoundingClientRect();
       if (canvas) {
@@ -60,6 +69,17 @@ export function Canvas({
             <p className="text-gray-700">
               {component.content || 'Text content'}
             </p>
+          )}
+          {component.type === 'geolocalisation' && (
+            <GeolocationComponent/>
+          )}
+          {component.type === 'image' && (
+            <img
+              src={component.imageSrc || ''}
+              alt="Uploaded"
+              className="w-32 h-32 object-cover"
+              style={{width: '250px', height: 'auto'}}
+            />
           )}
         </div>
       ))}

@@ -8,7 +8,7 @@ function App() {
   const [components, setComponents] = useState<CanvasComponent[]>([]);
   const [selectedComponent, setSelectedComponent] = useState<CanvasComponent | null>(null);
 
-  const handleAddComponent = (type: 'button' | 'title' | 'text' | 'image' | 'geolocalisation') => {
+  const handleAddComponent = (type: 'button' | 'title' | 'text' | 'image' | 'geolocalisation' | 'carousel' | 'images') => {
     if (type === 'image') {
       const input = document.createElement('input');
       input.type = 'file';

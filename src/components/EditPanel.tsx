@@ -1,5 +1,6 @@
 import React from 'react';
 import { X } from 'lucide-react';
+import { CanvasComponent } from '../types';
 
 interface EditPanelProps {
   component: CanvasComponent | null;
