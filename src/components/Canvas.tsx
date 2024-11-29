@@ -32,7 +32,7 @@ export function Canvas({
   };
 
   return (
-    <div className="flex-1 bg-white h-screen overflow-hidden relative">
+    <div id="canvas" className="flex-1 bg-white h-screen overflow-hidden relative">
       {components.map((component) => (
         <div
           key={component.id}

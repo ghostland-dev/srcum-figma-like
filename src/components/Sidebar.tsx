@@ -1,4 +1,5 @@
 import React from 'react';
+import { ExportPDF } from './ExportPDF';
 import { Square, Heading, TextIcon } from 'lucide-react';
 
 type ComponentType = 'button' | 'title' | 'text';
@@ -33,6 +34,12 @@ export function Sidebar({ onAddComponent }: SidebarProps) {
         <TextIcon size={20} />
         <span>Text</span>
       </button>
+
+      <div className="mt-auto">
+        <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full">
+          <ExportPDF canvasId="canvas" />
+        </button>
+      </div>
     </div>
   );
 }
