@@ -1,5 +1,4 @@
 import React from 'react';
-import { CanvasComponent } from '../types';
 import { X } from 'lucide-react';
 
 interface EditPanelProps {
@@ -35,30 +34,49 @@ export function EditPanel({ component, onUpdate, onClose }: EditPanelProps) {
             />
           </div>         
         }
-        
+
         <div>
           <label className="block text-sm mb-2">Position X</label>
           <input
             type="number"
             value={component.position.x}
-            onChange={(e) => onUpdate({ 
-              position: { ...component.position, x: Number(e.target.value) }
-            })}
+            onChange={(e) =>
+              onUpdate({
+                position: { ...component.position, x: Number(e.target.value) },
+              })
+            }
             className="w-full px-3 py-2 bg-gray-700 rounded text-white"
           />
         </div>
-        
+
         <div>
           <label className="block text-sm mb-2">Position Y</label>
           <input
             type="number"
             value={component.position.y}
-            onChange={(e) => onUpdate({ 
-              position: { ...component.position, y: Number(e.target.value) }
-            })}
+            onChange={(e) =>
+              onUpdate({
+                position: { ...component.position, y: Number(e.target.value) },
+              })
+            }
             className="w-full px-3 py-2 bg-gray-700 rounded text-white"
           />
         </div>
+
+        {component.type === 'carousel' && (
+          <div>
+            <label className="block text-sm mb-2">Images (URLs, séparées par des virgules)</label>
+            <textarea
+              value={(component.images || []).join(', ')}
+              onChange={(e) =>
+                onUpdate({
+                  images: e.target.value.split(',').map((url) => url.trim()),
+                })
+              }
+              className="w-full px-3 py-2 bg-gray-700 rounded text-white"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
