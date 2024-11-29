@@ -9,18 +9,44 @@ function App() {
   const [components, setComponents] = useState<CanvasComponent[]>([]);
   const [selectedComponent, setSelectedComponent] = useState<CanvasComponent | null>(null);
 
+
   const handleDeleteComponent = (id: string) => {
     setComponents(components.filter(comp => comp.id !== id));
     setSelectedComponent(null);
   };
-  const handleAddComponent = (type: 'button' | 'title' | 'text') => {
-    const newComponent: CanvasComponent = {
-      id: crypto.randomUUID(),
-      type,
-      content: '',
-      position: { x: 100, y: 100 },
-    };
-    setComponents([...components, newComponent]);
+  const handleAddComponent = (type: 'button' | 'title' | 'text' | 'image' | 'geolocalisation' | 'carousel' | 'images') => {
+    if (type === 'image') {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = (e) => {
+        const file = (e.target as HTMLInputElement).files?.[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const newComponent: CanvasComponent = {
+              id: crypto.randomUUID(),
+              type: 'image',
+              content: file.name,
+              position: { x: 100, y: 100 },
+              imageSrc: reader.result as string,
+            };
+            setComponents([...components, newComponent]);
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+      input.click();
+    } else {
+      const newComponent: CanvasComponent = {
+        id: crypto.randomUUID(),
+        type,
+        content: '',
+        position: { x: 100, y: 100 },
+      };
+      setComponents([...components, newComponent]);
+    }
+
   };
 
   const handleUpdateComponent = (

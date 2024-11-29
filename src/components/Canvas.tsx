@@ -1,5 +1,8 @@
 import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 import { CanvasComponent } from '../types';
+import GeolocationComponent from './GeolocationComponent';
 
 interface CanvasProps {
   components: CanvasComponent[];
@@ -8,11 +11,11 @@ interface CanvasProps {
   selectedId: string | null;
 }
 
-export function Canvas({ 
-  components, 
-  onUpdateComponent, 
+export function Canvas({
+  components,
+  onUpdateComponent,
   onSelectComponent,
-  selectedId 
+  selectedId,
 }: CanvasProps) {
   const handleDragStart = (e: React.DragEvent, id: string) => {
     e.dataTransfer.setData('componentId', id);
@@ -64,6 +67,7 @@ export function Canvas({
               {component.content || 'Button'}
             </button>
           )}
+
           {component.type === 'title' && (
             <h2 
               style={{
@@ -76,6 +80,7 @@ export function Canvas({
               {component.content || 'Title'}
             </h2>
           )}
+
           {component.type === 'text' && (
             <p 
               style={{
@@ -86,6 +91,26 @@ export function Canvas({
             >
               {component.content || 'Text content'}
             </p>
+          )}
+          {component.type === 'geolocalisation' && (
+            <GeolocationComponent/>
+          )}
+          {component.type === 'image' && (
+            <img
+              src={component.imageSrc || ''}
+              alt="Uploaded"
+              className="w-32 h-32 object-cover"
+              style={{width: '250px', height: 'auto'}}
+            />
+          )}
+          {component.type === 'carousel' && (
+            <Swiper className="w-64 h-32 bg-gray-200">
+              {(component.images || []).map((image, index) => (
+                <SwiperSlide key={index}>
+                  <img src={image} alt={`Slide ${index}`} className="w-full h-full object-cover" />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           )}
         </div>
       ))}

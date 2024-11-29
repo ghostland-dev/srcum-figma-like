@@ -1,6 +1,7 @@
 import React from 'react';
+import { X } from 'lucide-react';
 import { CanvasComponent } from '../types';
-import { X, Trash2 } from 'lucide-react';
+import { X } from 'lucide-react';
 
 interface EditPanelProps {
   component: CanvasComponent | null;
@@ -25,90 +26,136 @@ export function EditPanel({ component, onUpdate, onDelete, onClose }: EditPanelP
       </div>
       
       <div className="space-y-4">
+        { component.type != "geolocalisation" && 
+          <div>
+            <label className="block text-sm mb-2">Content</label>
+            <input
+              type="text"
+              value={component.content}
+              onChange={(e) => onUpdate({ content: e.target.value })}
+              className="w-full px-3 py-2 bg-gray-700 rounded text-white"
+            />
+          </div>         
+        }
+
         <div>
-          <label className="block text-sm mb-2">Content</label>
+          <label className="block text-sm mb-2">Position X</label>
           <input
-            type="text"
-            value={component.content}
-            onChange={(e) => onUpdate({ content: e.target.value })}
+            type="number"
+            value={component.position.x}
+            onChange={(e) =>
+              onUpdate({
+                position: { ...component.position, x: Number(e.target.value) },
+              })
+            }
             className="w-full px-3 py-2 bg-gray-700 rounded text-white"
           />
         </div>
-        
-        <div className="grid grid-cols-2 gap-2">
+
+        <div>
+          <label className="block text-sm mb-2">Position Y</label>
+          <input
+            type="number"
+            value={component.position.y}
+            onChange={(e) =>
+              onUpdate({
+                position: { ...component.position, y: Number(e.target.value) },
+              })
+            }
+            className="w-full px-3 py-2 bg-gray-700 rounded text-white"
+          />
+        </div>
+
+        {component.type === 'carousel' && (
           <div>
-            <label className="block text-sm mb-2">Position X</label>
-            <input
-              type="number"
-              value={component.position.x}
-              onChange={(e) => onUpdate({ 
-                position: { ...component.position, x: Number(e.target.value) }
-              })}
+            <label className="block text-sm mb-2">Images (URLs, séparées par des virgules)</label>
+            <textarea
+              value={(component.images || []).join(', ')}
+              onChange={(e) =>
+                onUpdate({
+                  images: e.target.value.split(',').map((url) => url.trim()),
+                })
+              }
               className="w-full px-3 py-2 bg-gray-700 rounded text-white"
             />
           </div>
-          
-          <div>
-            <label className="block text-sm mb-2">Position Y</label>
-            <input
-              type="number"
-              value={component.position.y}
-              onChange={(e) => onUpdate({ 
-                position: { ...component.position, y: Number(e.target.value) }
-              })}
-              className="w-full px-3 py-2 bg-gray-700 rounded text-white"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm mb-2">Width</label>
-          <input
-            type="number"
-            value={component.width || 'auto'}
-            onChange={(e) => onUpdate({ width: Number(e.target.value) })}
-            className="w-full px-3 py-2 bg-gray-700 rounded text-white"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm mb-2">Background Color</label>
-          <input
-            type="color"
-            value={component.backgroundColor || '#ffffff'}
-            onChange={(e) => onUpdate({ backgroundColor: e.target.value })}
-            className="w-full h-10 bg-gray-700 rounded cursor-pointer"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm mb-2">Text Color</label>
-          <input
-            type="color"
-            value={component.textColor || '#000000'}
-            onChange={(e) => onUpdate({ textColor: e.target.value })}
-            className="w-full h-10 bg-gray-700 rounded cursor-pointer"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm mb-2">Font Size</label>
-          <input
-            type="number"
-            value={component.fontSize || 16}
-            onChange={(e) => onUpdate({ fontSize: Number(e.target.value) })}
-            className="w-full px-3 py-2 bg-gray-700 rounded text-white"
-          />
-        </div>
-
-        <button
-          onClick={() => onDelete(component.id)}
-          className="flex items-center justify-center gap-2 w-full px-4 py-2 mt-4 bg-red-500 hover:bg-red-600 rounded text-white"
-        >
-          <Trash2 size={20} />
-          Delete Element
-        </button>
+        )}
       </div>
     </div>
   );
 }
+
+
+{/* <div className="grid grid-cols-2 gap-2">
+<div>
+  <label className="block text-sm mb-2">Position X</label>
+  <input
+    type="number"
+    value={component.position.x}
+    onChange={(e) => onUpdate({ 
+      position: { ...component.position, x: Number(e.target.value) }
+    })}
+    className="w-full px-3 py-2 bg-gray-700 rounded text-white"
+  />
+</div>
+
+<div>
+  <label className="block text-sm mb-2">Position Y</label>
+  <input
+    type="number"
+    value={component.position.y}
+    onChange={(e) => onUpdate({ 
+      position: { ...component.position, y: Number(e.target.value) }
+    })}
+    className="w-full px-3 py-2 bg-gray-700 rounded text-white"
+  />
+</div>
+</div>
+
+<div>
+<label className="block text-sm mb-2">Width</label>
+<input
+  type="number"
+  value={component.width || 'auto'}
+  onChange={(e) => onUpdate({ width: Number(e.target.value) })}
+  className="w-full px-3 py-2 bg-gray-700 rounded text-white"
+/>
+</div>
+
+<div>
+<label className="block text-sm mb-2">Background Color</label>
+<input
+  type="color"
+  value={component.backgroundColor || '#ffffff'}
+  onChange={(e) => onUpdate({ backgroundColor: e.target.value })}
+  className="w-full h-10 bg-gray-700 rounded cursor-pointer"
+/>
+</div>
+
+<div>
+<label className="block text-sm mb-2">Text Color</label>
+<input
+  type="color"
+  value={component.textColor || '#000000'}
+  onChange={(e) => onUpdate({ textColor: e.target.value })}
+  className="w-full h-10 bg-gray-700 rounded cursor-pointer"
+/>
+</div>
+
+<div>
+<label className="block text-sm mb-2">Font Size</label>
+<input
+  type="number"
+  value={component.fontSize || 16}
+  onChange={(e) => onUpdate({ fontSize: Number(e.target.value) })}
+  className="w-full px-3 py-2 bg-gray-700 rounded text-white"
+/>
+</div>
+
+<button
+onClick={() => onDelete(component.id)}
+className="flex items-center justify-center gap-2 w-full px-4 py-2 mt-4 bg-red-500 hover:bg-red-600 rounded text-white"
+>
+<Trash2 size={20} />
+Delete Element
+</button> */}
