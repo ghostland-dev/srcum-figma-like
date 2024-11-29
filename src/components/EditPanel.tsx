@@ -24,15 +24,17 @@ export function EditPanel({ component, onUpdate, onClose }: EditPanelProps) {
       </div>
       
       <div className="space-y-4">
-        <div>
-          <label className="block text-sm mb-2">Content</label>
-          <input
-            type="text"
-            value={component.content}
-            onChange={(e) => onUpdate({ content: e.target.value })}
-            className="w-full px-3 py-2 bg-gray-700 rounded text-white"
-          />
-        </div>
+        { component.type != "geolocalisation" && 
+          <div>
+            <label className="block text-sm mb-2">Content</label>
+            <input
+              type="text"
+              value={component.content}
+              onChange={(e) => onUpdate({ content: e.target.value })}
+              className="w-full px-3 py-2 bg-gray-700 rounded text-white"
+            />
+          </div>         
+        }
         
         <div>
           <label className="block text-sm mb-2">Position X</label>

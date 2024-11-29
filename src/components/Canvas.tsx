@@ -1,5 +1,6 @@
 import React from 'react';
 import { CanvasComponent } from '../types';
+import GeolocationComponent from './GeolocationComponent';
 
 interface CanvasProps {
   components: CanvasComponent[];
@@ -64,6 +65,9 @@ export function Canvas({
             <p className="text-gray-700">
               {component.content || 'Text content'}
             </p>
+          )}
+          {component.type === 'geolocalisation' && (
+            <GeolocationComponent/>
           )}
         </div>
       ))}

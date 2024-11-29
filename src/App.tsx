@@ -8,7 +8,7 @@ function App() {
   const [components, setComponents] = useState<CanvasComponent[]>([]);
   const [selectedComponent, setSelectedComponent] = useState<CanvasComponent | null>(null);
 
-  const handleAddComponent = (type: 'button' | 'title' | 'text') => {
+  const handleAddComponent = (type: 'button' | 'title' | 'text' | 'geolocalisation') => {
     const newComponent: CanvasComponent = {
       id: crypto.randomUUID(),
       type,

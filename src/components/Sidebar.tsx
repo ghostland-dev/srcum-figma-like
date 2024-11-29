@@ -1,7 +1,7 @@
 import React from 'react';
-import { Square, Heading, TextIcon } from 'lucide-react';
+import { Square, Heading, TextIcon, Locate } from 'lucide-react';
 
-type ComponentType = 'button' | 'title' | 'text';
+type ComponentType = 'button' | 'title' | 'text' | 'geolocalisation';
 
 interface SidebarProps {
   onAddComponent: (type: ComponentType) => void;
@@ -32,6 +32,13 @@ export function Sidebar({ onAddComponent }: SidebarProps) {
       >
         <TextIcon size={20} />
         <span>Text</span>
+      </button>
+      <button
+        onClick={() => onAddComponent('geolocalisation')}
+        className="flex items-center gap-2 text-white bg-gray-700 hover:bg-gray-600 p-3 rounded-lg w-full"
+      >
+        <Locate size={20} />
+        <span>Géolocalisation</span>
       </button>
     </div>
   );
