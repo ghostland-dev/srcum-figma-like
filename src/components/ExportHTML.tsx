@@ -36,6 +36,28 @@ export function ExportButton({ components }: ExportButtonProps) {
             return `<p class="component text" style="${style}">${
               component.content || 'Text content'
             }</p>`;
+          
+          // Ajouter la localisation
+            
+          case 'image':
+            return `<img class="component image" style="${style}" src="${component.content || ''}" alt="Image" />`;
+
+            case 'carousel':
+              const carouselImages = (component.images || [])
+                .map((image, index) => {
+                  return `<img class="component carousel-image" style="width: 100%; height: auto; object-fit: cover; display: none;" src="${image}" alt="Slide ${index}" />`;
+                })
+                .join('');
+  
+              return `
+                <div class="component carousel" style="${style}; width: 40%; position: relative;">
+                  <div class="carousel-container" style="display: flex; transition: transform 0.5s ease; width: 100%; flex-wrap: nowrap;">
+                    ${carouselImages}
+                  </div>
+                  <button class="carousel-prev" style="position: absolute; top: 50%; left: 0; z-index: 1; background: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px;">&#10094;</button>
+                  <button class="carousel-next" style="position: absolute; top: 50%; right: 0; z-index: 1; background: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px;">&#10095;</button>
+                </div>`;
+            
           default:
             return '';
         }
@@ -55,6 +77,37 @@ export function ExportButton({ components }: ExportButtonProps) {
     <div id="canvas" style="position: relative; width: 100%; height: 100vh;">
         ${componentsHTML}
     </div>
+    <script>
+          let currentIndex = 0;
+          const carousels = document.querySelectorAll('.component.carousel');
+          carousels.forEach((carousel) => {
+            const images = carousel.querySelectorAll('.carousel-image');
+            const totalImages = images.length;
+            const container = carousel.querySelector('.carousel-container');
+
+            // Fonction pour afficher la bonne image
+            const updateCarousel = () => {
+              images.forEach((img, index) => {
+                img.style.display = (index === currentIndex) ? 'block' : 'none'; // Affiche l'image actuelle et masque les autres
+              });
+            };
+
+            // Gérer le clic sur le bouton "suivant"
+            carousel.querySelector('.carousel-next').addEventListener('click', () => {
+              currentIndex = (currentIndex + 1) % totalImages;
+              updateCarousel();
+            });
+
+            // Gérer le clic sur le bouton "précédent"
+            carousel.querySelector('.carousel-prev').addEventListener('click', () => {
+              currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+              updateCarousel();
+            });
+
+            // Initialisation pour afficher la première image
+            updateCarousel();
+          });
+        </script>
 </body>
 </html>`;
   };
