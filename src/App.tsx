@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { Canvas } from './components/Canvas';
 import { CanvasComponent } from './types';
+import { EditPanel } from './components/EditPanel';
 
 function App() {
   const [components, setComponents] = useState<CanvasComponent[]>([]);
@@ -42,12 +43,19 @@ function App() {
   return (
     <div className="flex">
       <Sidebar onAddComponent={handleAddComponent} />
-       { <Canvas 
+       <Canvas 
         components={components} 
         onUpdateComponent={handleUpdateComponent}
         onSelectComponent={handleSelectComponent}
         selectedId={selectedComponent?.id ?? null}
-      />}
+      />
+      <EditPanel 
+        component={selectedComponent}
+        onUpdate={(updates) => 
+          selectedComponent && handleUpdateComponent(selectedComponent.id, updates)
+        }
+        onClose={() => setSelectedComponent(null)}
+      />
     </div>
   );
 }
